@@ -1,4 +1,9 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  typescript: {
+    ignoreBuildErrors: false,
+  },
+  transpilePackages: ['lucide-react'],
+}
 
-export default nextConfig;
+export default nextConfig
