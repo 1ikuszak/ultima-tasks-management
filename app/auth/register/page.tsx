@@ -1,22 +1,15 @@
-import { Metadata } from 'next'
 import Link from 'next/link'
-
 import { cn } from '@/lib/utils'
 import { buttonVariants } from '@/components/ui/button'
 import { UserRegisterForm } from '@/components/auth/UserRegisterForm'
 import readUserSession from '@/lib/actions'
 import { redirect } from 'next/navigation'
-import Icon from '@/components/Icon'
-
-export const metadata: Metadata = {
-  title: 'Authentication',
-  description: 'Authentication forms built using the components.',
-}
+import { Icons } from '@/components/icons'
 
 export default async function AuthenticationPage() {
   const { data } = await readUserSession()
   if (data.session) {
-    return redirect('/dashboard')
+    return redirect('/')
   }
   return (
     <>
@@ -33,7 +26,7 @@ export default async function AuthenticationPage() {
         <div className="relative flex-col hidden h-screen p-10 text-white bg-muted dark:border-r lg:flex">
           <div className="absolute inset-0 bg-zinc-900" />
           <div className="relative z-20 flex items-center text-lg font-medium">
-            <Icon name="sun-snow" />
+            <Icons.loader />
           </div>
           <div className="relative z-20 mt-auto">
             <blockquote className="space-y-2">

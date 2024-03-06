@@ -3,9 +3,9 @@ import { Inter as FontSans } from 'next/font/google'
 import '@/styles/globals.css'
 import { Toaster } from 'sonner'
 import { cn } from '@/lib/utils'
-import { FullScreenProvider } from '@/lib/context/FullScreenContext'
-import { ThemeProvider } from '@/components/theme-provider'
 import Navbar from '@/components/nav/navbar'
+import { ThemeProvider } from '@/components/theme-provider'
+import { FullScreenProvider } from '@/lib/context/FullScreenContext'
 
 export const fontSans = FontSans({
   subsets: ['latin'],
@@ -24,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html suppressHydrationWarning lang="en">
       <body
         className={cn(
           'min-h-screen bg-background font-sans antialiased',
@@ -41,8 +41,9 @@ export default function RootLayout({
             <main className="relative flex flex-col min-h-screen">
               <Navbar />
               <div className="flex-1 flex-grow">
+                <div id="portal-root"></div>
                 {children}
-                <Toaster position="bottom-right" expand={true} />
+                <Toaster position="bottom-right" richColors expand={true} />
               </div>
             </main>
           </ThemeProvider>

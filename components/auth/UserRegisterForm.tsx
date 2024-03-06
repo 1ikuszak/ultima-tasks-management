@@ -12,7 +12,7 @@ import {
   SignUpCredentials,
   SignUpValidationSchema,
 } from '@/lib/validators/signup-validator'
-import Icon from '../Icon'
+import { Icons } from '../icons'
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -88,7 +88,7 @@ export function UserRegisterForm({ className, ...props }: UserAuthFormProps) {
           </div>
           <Button type="submit" disabled={isLoading}>
             {isLoading && (
-              <Icon name="loader" className="w-4 h-4 mr-2 animate-spin" />
+              <Icons.loader className="w-4 h-4 mr-2 animate-spin" />
             )}
             Sign In
           </Button>

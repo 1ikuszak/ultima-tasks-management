@@ -1,12 +1,12 @@
 import Link from 'next/link'
 import MaxWidthWrapper from '../max-width-wrapper'
-import Icon from '@/components/Icon'
 import NavItems from './nav-items'
 import MobileNav from './mobile-nav'
 import { UserNav } from './user-nav'
 import readUserSession from '@/lib/actions'
 import { ModeToggle } from './mode-toggle'
 import { FullScreenToggle } from './full-screen-toggle'
+import { Icons } from '../icons'
 
 const Navbar = async () => {
   const { data: userSession } = await readUserSession()
@@ -23,7 +23,7 @@ const Navbar = async () => {
                 <div className="flex ml-4 lg:ml-0">
                   <Link href="/">
                     <span className="flex items-center gap-3">
-                      <Icon name="sun-snow" />
+                      <Icons.logo />
                       <span className="font-semibold">
                         Ultima
                         <span className="text-xs"> Tasks</span>

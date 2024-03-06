@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
-import createSupabaseClient from '@/lib/supabase/server'
+import supabaseServer from '@/lib/supabase/server'
 import { cipher } from '@/lib/utils'
 import { redirect } from 'next/navigation'
 
@@ -18,7 +18,7 @@ export async function UserNav() {
 
   const logout = async () => {
     'use server'
-    const supabase = await createSupabaseClient()
+    const supabase = await supabaseServer()
     await supabase.auth.signOut()
     redirect('/auth/login')
   }

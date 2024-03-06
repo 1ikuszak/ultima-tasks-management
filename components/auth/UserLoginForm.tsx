@@ -9,7 +9,7 @@ import { toast } from 'sonner'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
-import Icon from '../Icon'
+import { Icons } from '../icons'
 import {
   SignInValidationSchema,
   SignInCredentials,
@@ -74,7 +74,7 @@ export function UserLoginForm({ className, ...props }: UserAuthFormProps) {
           </div>
           <Button type="submit" disabled={isLoading}>
             {isLoading && (
-              <Icon name="loader" className="w-4 h-4 mr-2 animate-spin" />
+              <Icons.loader className="w-4 h-4 mr-2 animate-spin" />
             )}
             Sign Up
           </Button>

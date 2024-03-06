@@ -2,8 +2,8 @@
 
 import { useFullScreen } from '@/lib/context/FullScreenContext'
 
-import Icon from '../Icon'
 import { Button } from '../ui/button'
+import { Icons } from '../icons'
 
 export function FullScreenToggle() {
   const { toggleFullScreen, isFullScreen } = useFullScreen()
@@ -15,10 +15,8 @@ export function FullScreenToggle() {
       variant={'outline'}
       size="icon"
     >
-      {isFullScreen && <Icon name="shrink" className="h-[1.2rem] w-[1.2rem]" />}
-      {!isFullScreen && (
-        <Icon name="expand" className="h-[1.2rem] w-[1.2rem]" />
-      )}
+      {isFullScreen && <Icons.shrink className="h-[1.2rem] w-[1.2rem]" />}
+      {!isFullScreen && <Icons.expand className="h-[1.2rem] w-[1.2rem]" />}
     </Button>
   )
 }
