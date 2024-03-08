@@ -13,6 +13,7 @@ import {
   XCircle,
   Users,
   ChevronLeft,
+  FolderPlus,
 } from 'lucide-react'
 
 export const Icons = {
@@ -30,4 +31,5 @@ export const Icons = {
   cancell: XCircle,
   users: Users,
   chevronLeft: ChevronLeft,
+  addProject: FolderPlus,
 }

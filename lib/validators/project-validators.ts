@@ -1,17 +1,29 @@
 import { z } from 'zod'
 
-export const ProjectValidattionSchema = z.object({
-  name: z
+export const ProjectValidationSchema = z.object({
+  title: z
     .string()
     .min(2, {
-      message: 'Name must be at least 2 characters.',
+      message: 'Title must be at least 2 characters.',
     })
     .max(30, {
-      message: 'Name must not be longer than 30 characters.',
+      message: 'Title must not be longer than 30 characters.',
     }),
-  deadline: z.date({
-    required_error: 'A date of deadline is required.',
+  start_date: z.date({
+    required_error: 'A stat date is required.',
   }),
+  deadline: z.date({
+    required_error: 'A deadline is required.',
+  }),
+  milestones: z
+    .array(
+      z.object({
+        title: z.string(),
+        deadline: z.date().optional(),
+      })
+    )
+    .optional(),
+  notes: z.string().optional(),
 })
 
-export type ProjectCredentials = z.infer<typeof ProjectValidattionSchema>
+export type ProjectCredentials = z.infer<typeof ProjectValidationSchema>

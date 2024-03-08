@@ -8,24 +8,24 @@ import {
 } from '@/components/ui/card'
 import { Button } from '../ui/button'
 import { Badge } from '../ui/badge'
-import { Icons } from '../icons'
+import { Icons } from '../Icons'
 import { Overview } from '../overview'
 import { KpiChart } from './kpi-chart'
 import { TeamTasksOverview } from './team-tasks-overview'
 
 export function ProjectCard() {
   return (
-    <Card className="h-[calc(100vh-100px)]">
+    <Card className="h-[calc(100vh-160px)] max-h-[900px]">
       <CardHeader className="flex flex-row items-center justify-between">
         <div>
           <CardTitle>Current Milestone</CardTitle>
           <CardDescription>Project Tittle</CardDescription>
         </div>
         <>
-          <Button>Tasks</Button>
+          <Button size={'sm'}>Tasks</Button>
         </>
       </CardHeader>
-      <CardContent className="h-[calc(100vh-200px)]">
+      <CardContent className="h-[calc(100vh-260px)] max-h-[800px]">
         <div className="grid grid-rows-7 grid-cols-5 gap-2 h-full">
           <div className="row-span-2 col-span-5 ">
             <KpiChart />
