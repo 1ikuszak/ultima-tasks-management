@@ -6,7 +6,7 @@ import { UserNav } from './user-nav'
 import readUserSession from '@/lib/actions'
 import { ModeToggle } from './mode-toggle'
 import { FullScreenToggle } from './full-screen-toggle'
-import { Icons } from '../Icons'
+import { Icons } from '../icons'
 
 const Navbar = async () => {
   const { data: userSession } = await readUserSession()

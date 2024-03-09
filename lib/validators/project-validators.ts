@@ -19,7 +19,7 @@ export const ProjectValidationSchema = z.object({
     .array(
       z.object({
         title: z.string(),
-        deadline: z.date().optional(),
+        deadline: z.date(),
       })
     )
     .optional(),

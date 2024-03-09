@@ -7,37 +7,59 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Button } from '../ui/button'
-import { Badge } from '../ui/badge'
-import { Icons } from '../Icons'
-import { Overview } from '../overview'
 import { KpiChart } from './kpi-chart'
 import { TeamTasksOverview } from './team-tasks-overview'
+import { ProjectWithMilestones } from '@/app/data/schema'
+import { formatDate, getCurrentMilestone } from '@/lib/utils'
+import { TimeProgressBar } from '../time-progress-bar'
+import { Badge } from '../ui/badge'
+import { MilestonesProgressChart } from './milestones-progress-chart'
 
-export function ProjectCard() {
+interface projectCardProps {
+  project: ProjectWithMilestones
+}
+
+export function ProjectCard({ project }: projectCardProps) {
+  const currentMilestone = getCurrentMilestone(project.milestones)
   return (
-    <Card className="h-[calc(100vh-160px)] max-h-[900px]">
+    <Card>
       <CardHeader className="flex flex-row items-center justify-between">
         <div>
-          <CardTitle>Current Milestone</CardTitle>
-          <CardDescription>Project Tittle</CardDescription>
+          <CardTitle>{currentMilestone?.title}</CardTitle>
+          <CardDescription>{project.title}</CardDescription>
         </div>
         <>
           <Button size={'sm'}>Tasks</Button>
         </>
       </CardHeader>
-      <CardContent className="h-[calc(100vh-260px)] max-h-[800px]">
-        <div className="grid grid-rows-7 grid-cols-5 gap-2 h-full">
-          <div className="row-span-2 col-span-5 ">
-            <KpiChart />
+      <CardContent className="">
+        <div className="gap-2">
+          <div className="h-[120px]">
+            <MilestonesProgressChart
+              project_end={project.deadline}
+              project_start={project.start_date}
+              milestones={project.milestones}
+            />
           </div>
-          <div className="row-span-4 col-span-5">
+          <div>
             <TeamTasksOverview />
-          </div>
-          <div className="row-span-1 col-span-5">
-            <Overview />
           </div>
         </div>
       </CardContent>
+      <CardFooter className="flex-col">
+        <div className="w-full flex items-center gap-4 justify-between">
+          <Badge className="text-xs" variant={'outline'}>
+            {formatDate(project.start_date)}
+          </Badge>
+          <TimeProgressBar
+            start_date={project.start_date}
+            end_date={project.deadline}
+          />
+          <Badge className="text-xs" variant={'outline'}>
+            {formatDate(project.deadline)}
+          </Badge>
+        </div>
+      </CardFooter>
       {/* <div className="w-full bg-emerald-200 col-span-1 grid place-items-center">
         <ol className="relative space-y-10 border-red-800 border-s">
           <li className="flex items-center">

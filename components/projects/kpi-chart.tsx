@@ -67,13 +67,13 @@ export function KpiChart() {
         data={data}
         margin={{ bottom: -10, left: -20, right: 10, top: 10 }}
       >
-        {/* <XAxis
+        <XAxis
           dataKey="name"
           stroke="#888888"
           fontSize={8}
           tickLine={false}
           axisLine={false}
-        /> */}
+        />
         <YAxis
           stroke="#888888"
           fontSize={12}

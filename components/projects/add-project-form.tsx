@@ -18,21 +18,21 @@ import {
 import { Separator } from '../ui/separator'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
-import { Icons } from '../Icons'
+import { Icons } from '../icons'
 import { cn } from '@/lib/utils'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 import { Calendar } from '../ui/calendar'
 import { CalendarIcon } from '@radix-ui/react-icons'
 import { format } from 'date-fns'
 import { Textarea } from '../ui/textarea'
-import { createProject } from '@/app/projects/actions'
+import { createMilestonesInBulk, createProject } from '@/app/projects/actions'
 import { toast } from 'sonner'
 
 const defaultValues: Partial<ProjectCredentials> = {
   title: '',
   deadline: undefined,
   start_date: undefined,
-  milestones: [{ title: 'milestone 1', deadline: undefined }],
+  milestones: [{ title: 'milestone 1', deadline: new Date() }],
   notes: '',
 }
 
@@ -64,16 +64,23 @@ export function AddProjectForm() {
     // get project_id
     const projectResult = JSON.parse(projectResponse)
     if (projectResult.error) {
-      console.error('Error creating task:', projectResult.error)
-      toast.error('Error creating task')
+      toast.error('Error creating project')
       return
     }
-    if (projectResult.data) {
+    if (projectResult.data && data.milestones) {
+      // add milestones
       const project_id = projectResult.data.id
+      const fullMilestones = data.milestones.map((milestone) => ({
+        ...milestone,
+        checked: false,
+        project_id: project_id,
+      }))
+      const milestoneResult = await createMilestonesInBulk(fullMilestones)
+      if (milestoneResult.error) {
+        toast.error('Error adding milestones')
+        return
+      } else toast('Project successfully added')
     }
-
-    //add milstones
-
     setIsLoading(false)
   }
 
@@ -235,15 +242,16 @@ export function AddProjectForm() {
                         <PopoverContent className="w-auto p-0" align="start">
                           <Calendar
                             mode="single"
-                            selected={form.watch(
-                              `milestones.${index}.deadline`
-                            )}
-                            onSelect={(date) =>
-                              form.setValue(
-                                `milestones.${index}.deadline`,
-                                date
-                              )
+                            selected={
+                              field.value ? new Date(field.value) : undefined
                             }
+                            onSelect={(date) => {
+                              if (date) {
+                                field.onChange(date)
+                              } else {
+                                field.onChange(new Date())
+                              }
+                            }}
                             initialFocus
                           />
                         </PopoverContent>
@@ -266,7 +274,7 @@ export function AddProjectForm() {
               variant="outline"
               size="sm"
               className="mt-2"
-              onClick={() => append({ title: '', deadline: undefined })} // Ensures the deadline is initially undefined
+              onClick={() => append({ title: '', deadline: new Date() })} // Ensures the deadline is initially undefined
             >
               Add Milestone
             </Button>

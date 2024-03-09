@@ -12,7 +12,7 @@ import {
   SignUpCredentials,
   SignUpValidationSchema,
 } from '@/lib/validators/signup-validator'
-import { Icons } from '../Icons'
+import { Icons } from '../icons'
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 

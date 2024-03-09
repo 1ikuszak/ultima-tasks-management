@@ -14,6 +14,8 @@ import {
   Users,
   ChevronLeft,
   FolderPlus,
+  CircleDashed,
+  CheckCircle2,
 } from 'lucide-react'
 
 export const Icons = {
@@ -32,4 +34,6 @@ export const Icons = {
   users: Users,
   chevronLeft: ChevronLeft,
   addProject: FolderPlus,
+  circleDashed: CircleDashed,
+  circleCheck: CheckCircle2,
 }

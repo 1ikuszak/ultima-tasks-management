@@ -4,7 +4,7 @@ import { buttonVariants } from '@/components/ui/button'
 import { UserLoginForm } from '@/components/auth/UserLoginForm'
 import readUserSession from '@/lib/actions'
 import { redirect } from 'next/navigation'
-import { Icons } from '@/components/Icons'
+import { Icons } from '@/components/icons'
 
 export default async function AuthenticationPage() {
   const { data } = await readUserSession()

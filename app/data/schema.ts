@@ -2,23 +2,30 @@ import { Milestone } from 'lucide-react'
 import { z } from 'zod'
 
 export const milestoneSchema = z.object({
-  // id: z.number().optional(),
+  id: z.string().optional(),
   title: z.string(),
-  deadline: z.date().optional(),
+  deadline: z.union([z.string(), z.date()]),
+  completed: z.union([z.string(), z.date()]).optional().nullable(),
   checked: z.boolean(),
   project_id: z.string(),
 })
 export type Milestone = z.infer<typeof milestoneSchema>
 
 export const projectSchema = z.object({
-  // id: z.string(),
+  id: z.string().optional(),
   title: z.string(),
-  start_date: z.date().optional(),
-  deadline: z.date().optional(),
-  notes: z.string().optional(),
+  start_date: z.union([z.string(), z.date()]),
+  deadline: z.union([z.string(), z.date()]),
+  notes: z.string().optional().nullable(),
 })
 
 export type Project = z.infer<typeof projectSchema>
+
+export const projectWithMilestonesSchema = projectSchema.extend({
+  milestones: z.array(milestoneSchema),
+})
+
+export type ProjectWithMilestones = z.infer<typeof projectWithMilestonesSchema>
 
 export const taskSchema = z.object({
   id: z.string(),

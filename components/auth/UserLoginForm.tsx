@@ -9,7 +9,7 @@ import { toast } from 'sonner'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
-import { Icons } from '../Icons'
+import { Icons } from '../icons'
 import {
   SignInValidationSchema,
   SignInCredentials,

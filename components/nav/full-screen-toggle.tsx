@@ -3,7 +3,7 @@
 import { useFullScreen } from '@/lib/context/FullScreenContext'
 
 import { Button } from '../ui/button'
-import { Icons } from '../Icons'
+import { Icons } from '../icons'
 
 export function FullScreenToggle() {
   const { toggleFullScreen, isFullScreen } = useFullScreen()

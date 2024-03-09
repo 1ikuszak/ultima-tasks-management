@@ -11,7 +11,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet'
-import { Icons } from '../Icons'
+import { Icons } from '../icons'
 import { AddProjectForm } from './add-project-form'
 
 export function AddProject() {
