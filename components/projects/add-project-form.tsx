@@ -201,12 +201,12 @@ export function AddProjectForm() {
           </div>
           <div className="space-y-2">
             {fields.map((field, index) => (
-              <FormField
-                key={field.id}
-                control={form.control}
-                name={`milestones.${index}.title`}
-                render={({ field }) => (
-                  <div className="flex gap-6">
+              <div className="flex gap-2">
+                <FormField
+                  key={field.id}
+                  control={form.control}
+                  name={`milestones.${index}.title`}
+                  render={({ field }) => (
                     <FormItem className="flex-1">
                       <FormControl>
                         <Input
@@ -215,59 +215,69 @@ export function AddProjectForm() {
                         />
                       </FormControl>
                     </FormItem>
-                    <FormItem className="flex-1">
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant={'outline'}
-                              className={cn(
-                                'w-[206px] pl-3 text-left font-normal',
-                                !field.value && 'text-muted-foreground'
-                              )}
-                            >
-                              {form.watch(`milestones.${index}.deadline`) ? (
-                                format(
-                                  form.watch(`milestones.${index}.deadline`) ||
-                                    new Date(),
-                                  'PPP'
-                                )
-                              ) : (
-                                <span>Select deadline</span> // Correctly displayed for an undefined deadline
-                              )}
-                              <CalendarIcon className="w-4 h-4 ml-auto opacity-50" />
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
-                          <Calendar
-                            mode="single"
-                            selected={
-                              field.value ? new Date(field.value) : undefined
-                            }
-                            onSelect={(date) => {
-                              if (date) {
-                                field.onChange(date)
-                              } else {
-                                field.onChange(new Date())
+                  )}
+                />
+                <FormField
+                  key={field.id}
+                  control={form.control}
+                  name={`milestones.${index}.deadline`}
+                  render={({ field }) => (
+                    <div className="flex gap-6">
+                      <FormItem className="flex-1">
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <FormControl>
+                              <Button
+                                variant={'outline'}
+                                className={cn(
+                                  'w-[206px] pl-3 text-left font-normal',
+                                  !field.value && 'text-muted-foreground'
+                                )}
+                              >
+                                {form.watch(`milestones.${index}.deadline`) ? (
+                                  format(
+                                    form.watch(
+                                      `milestones.${index}.deadline`
+                                    ) || new Date(),
+                                    'PPP'
+                                  )
+                                ) : (
+                                  <span>Select deadline</span> // Correctly displayed for an undefined deadline
+                                )}
+                                <CalendarIcon className="w-4 h-4 ml-auto opacity-50" />
+                              </Button>
+                            </FormControl>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-auto p-0" align="start">
+                            <Calendar
+                              mode="single"
+                              selected={
+                                field.value ? new Date(field.value) : undefined
                               }
-                            }}
-                            initialFocus
-                          />
-                        </PopoverContent>
-                      </Popover>
-                    </FormItem>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      onClick={() => remove(index)}
-                      className="p-2" // Adjust padding as needed
-                    >
-                      <Icons.trash className="w-4 h-4 text-rose-500" />
-                    </Button>
-                  </div>
-                )}
-              />
+                              onSelect={(date) => {
+                                if (date) {
+                                  field.onChange(date)
+                                } else {
+                                  field.onChange(new Date())
+                                }
+                              }}
+                              initialFocus
+                            />
+                          </PopoverContent>
+                        </Popover>
+                      </FormItem>
+                    </div>
+                  )}
+                />
+                <Button
+                  type="button"
+                  variant="ghost"
+                  onClick={() => remove(index)}
+                  className="p-2" // Adjust padding as needed
+                >
+                  <Icons.trash className="w-4 h-4 text-rose-500" />
+                </Button>
+              </div>
             ))}
             <Button
               type="button"

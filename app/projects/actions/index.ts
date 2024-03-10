@@ -13,7 +13,6 @@ export async function createProject(task: Project) {
 }
 
 export async function createMilestonesInBulk(milestones: Milestone[]) {
-  console.log(milestones)
   const supabase = await supabaseServer()
   const result = await supabase.from('milestone').insert(milestones)
   revalidatePath(`projects`)

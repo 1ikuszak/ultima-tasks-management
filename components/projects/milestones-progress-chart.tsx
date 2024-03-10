@@ -37,7 +37,12 @@ const calculateGradientOffset = (chartData: ChartMilestone[]) => {
   return dataMax / (dataMax - dataMin)
 }
 
-const CheckedIcon = (props: LucideProps) => <Icons.circleCheck {...props} />
+const CheckedIcon = (props: LucideProps) => (
+  <Icons.circleCheck
+    {...props}
+    className="fill fill-blue-200 dark:fill-blue-800"
+  />
+)
 const UnCheckedIcon = (props: LucideProps) => <Icons.circleDashed {...props} />
 
 interface CustomDotProps extends DotProps {
@@ -162,6 +167,8 @@ export function MilestonesProgressChart({
             style: { fill: 'var(--primary)', opacity: 0.25 },
           }}
           fill="url(#splitColor)"
+          className="stroke stroke-primary"
+          style={{ stroke: 'var(--primary)' }}
         />
         <ReferenceLine
           y={0}

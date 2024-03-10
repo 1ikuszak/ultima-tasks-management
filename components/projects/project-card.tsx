@@ -14,6 +14,8 @@ import { formatDate, getCurrentMilestone } from '@/lib/utils'
 import { TimeProgressBar } from '../time-progress-bar'
 import { Badge } from '../ui/badge'
 import { MilestonesProgressChart } from './milestones-progress-chart'
+import { RadarChart } from './radar-chart'
+import { EditMilestonesDialog } from './update-milestones-dialog'
 
 interface projectCardProps {
   project: ProjectWithMilestones
@@ -28,9 +30,10 @@ export function ProjectCard({ project }: projectCardProps) {
           <CardTitle>{currentMilestone?.title}</CardTitle>
           <CardDescription>{project.title}</CardDescription>
         </div>
-        <>
+        <div className="flex gap-1">
+          <EditMilestonesDialog milestones={project.milestones} />
           <Button size={'sm'}>Tasks</Button>
-        </>
+        </div>
       </CardHeader>
       <CardContent className="">
         <div className="gap-2">
@@ -60,38 +63,6 @@ export function ProjectCard({ project }: projectCardProps) {
           </Badge>
         </div>
       </CardFooter>
-      {/* <div className="w-full bg-emerald-200 col-span-1 grid place-items-center">
-        <ol className="relative space-y-10 border-red-800 border-s">
-          <li className="flex items-center">
-            <span className="flex-shrink-0 absolute flex items-center justify-center w-6 h-6 rounded-full -start-3 text-magenta-400 bg-magenta-100 ring-1 ring-magenta-400">
-              <Icons.calendar className="w-4 h-4" />
-            </span>
-          </li>
-          <li className="flex items-center">
-            <span className="flex-shrink-0 absolute flex items-center justify-center w-6 h-6 rounded-full -start-3 text-magenta-400 bg-magenta-100 ring-1 ring-magenta-400">
-              <Icons.calendar className="w-4 h-4" />
-            </span>
-          </li>
-          <li className="flex items-center">
-            <span className="flex-shrink-0 absolute flex items-center justify-center w-6 h-6 rounded-full -start-3 text-magenta-400 bg-magenta-100 ring-1 ring-magenta-400">
-              <Icons.calendar className="w-4 h-4" />
-            </span>
-          </li>
-          <li className="flex items-center">
-            <span className="flex-shrink-0 absolute flex items-center justify-center w-6 h-6 rounded-full -start-3 text-magenta-400 bg-magenta-100 ring-1 ring-magenta-400">
-              <Icons.calendar className="w-4 h-4" />
-            </span>
-          </li>
-          <li className="flex items-center">
-            <span className="flex-shrink-0 absolute flex items-center justify-center w-6 h-6 rounded-full -start-3 text-magenta-400 bg-magenta-100 ring-1 ring-magenta-400">
-              <Icons.calendar className="w-4 h-4" />
-            </span>
-          </li>
-        </ol>
-      </div> */}
-      {/* <CardFooter>
-        <p>Card Footer</p>
-      </CardFooter> */}
     </Card>
   )
 }
