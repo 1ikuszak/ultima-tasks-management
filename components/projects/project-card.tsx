@@ -40,8 +40,8 @@ export function ProjectCard({ project }: projectCardProps) {
         <div className="gap-2">
           <div className="h-[120px]">
             <MilestonesProgressChart
-              project_end={project.deadline}
-              project_start={project.start_date}
+              project_end={project.deadline ? project.deadline : ' '}
+              project_start={project.start_date ? project.start_date : ' '}
               milestones={project.milestones}
             />
           </div>
@@ -56,8 +56,8 @@ export function ProjectCard({ project }: projectCardProps) {
             {formatDate(project.start_date)}
           </Badge>
           <TimeProgressBar
-            start_date={project.start_date}
-            end_date={project.deadline}
+            start_date={project.start_date ? project.start_date : ' '}
+            end_date={project.deadline ? project.deadline : ' '}
           />
           <Badge className="text-xs" variant={'outline'}>
             {formatDate(project.deadline)}

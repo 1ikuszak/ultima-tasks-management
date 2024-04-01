@@ -1,5 +1,15 @@
 import * as z from 'zod'
 
+export const TaskSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  status: z.string(),
+  label: z.string(),
+  priority: z.string(),
+})
+
+export type Task = z.infer<typeof TaskSchema>
+
 export const MilestoneSchema = z.object({
   id: z.string().optional(),
   title: z.string(),
@@ -38,17 +48,6 @@ export const ProjectWithMilestonesSchema = ProjectSchema.extend({
   milestones: z.array(MilestoneSchema),
 })
 export type ProjectWithMilestones = z.infer<typeof ProjectWithMilestonesSchema>
-
-export const TaskSchema = z.object({
-  id: z.string(),
-  title: z.string(),
-  notes: z.string(),
-  deadline: z.union([z.string(), z.date()]),
-  blocked: z.boolean(),
-  project_id: z.string(),
-  status: z.string().optional(),
-})
-export type Task = z.infer<typeof TaskSchema>
 
 export const CreationTaskSchema = z.object({
   title: z.string(),
