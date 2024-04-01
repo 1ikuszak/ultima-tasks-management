@@ -3,13 +3,8 @@ import { useState } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
-  ProjectCredentials,
-  ProjectValidationSchema,
-} from '@/lib/validators/project-validators'
-import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -27,8 +22,9 @@ import { format } from 'date-fns'
 import { Textarea } from '../ui/textarea'
 import { createMilestonesInBulk, createProject } from '@/app/projects/actions'
 import { toast } from 'sonner'
+import { Project, ProjectSchema } from '@/schemas'
 
-const defaultValues: Partial<ProjectCredentials> = {
+const defaultValues: Partial<Project> = {
   title: '',
   deadline: undefined,
   start_date: undefined,
@@ -37,8 +33,8 @@ const defaultValues: Partial<ProjectCredentials> = {
 }
 
 export function AddProjectForm() {
-  const form = useForm<ProjectCredentials>({
-    resolver: zodResolver(ProjectValidationSchema),
+  const form = useForm<Project>({
+    resolver: zodResolver(ProjectSchema),
     defaultValues,
     mode: 'onChange',
   })
@@ -50,7 +46,7 @@ export function AddProjectForm() {
 
   const [isLoading, setIsLoading] = useState(false)
 
-  const onSubmit = async (data: ProjectCredentials) => {
+  const onSubmit = async (data: Project) => {
     setIsLoading(true)
 
     // add project
@@ -140,7 +136,9 @@ export function AddProjectForm() {
                     <PopoverContent className="w-auto p-0" align="start">
                       <Calendar
                         mode="single"
-                        selected={field.value}
+                        selected={
+                          field.value ? new Date(field.value) : undefined
+                        }
                         onSelect={(date) => {
                           field.onChange(date || new Date())
                         }}
@@ -169,7 +167,7 @@ export function AddProjectForm() {
                           )}
                         >
                           {field.value ? (
-                            format(field.value, 'PPP')
+                            format(field.value, 'MMMM dd, yyyy')
                           ) : (
                             <span>deadline date</span>
                           )}
@@ -180,7 +178,9 @@ export function AddProjectForm() {
                     <PopoverContent className="w-auto p-0" align="start">
                       <Calendar
                         mode="single"
-                        selected={field.value}
+                        selected={
+                          field.value ? new Date(field.value) : undefined
+                        }
                         onSelect={(date) => field.onChange(date || new Date())}
                         initialFocus
                       />
@@ -201,7 +201,7 @@ export function AddProjectForm() {
           </div>
           <div className="space-y-2">
             {fields.map((field, index) => (
-              <div className="flex gap-2">
+              <div className="flex gap-2" key={field.id}>
                 <FormField
                   key={field.id}
                   control={form.control}

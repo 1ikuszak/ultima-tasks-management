@@ -8,11 +8,8 @@ import { signUpWithEmailAndPassword } from '../../app/auth/actions'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
-import {
-  SignUpCredentials,
-  SignUpValidationSchema,
-} from '@/lib/validators/signup-validator'
 import { Icons } from '../icons'
+import { Register, RegisterSchema } from '@/schemas'
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -23,11 +20,11 @@ export function UserRegisterForm({ className, ...props }: UserAuthFormProps) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignUpCredentials>({
-    resolver: zodResolver(SignUpValidationSchema),
+  } = useForm<Register>({
+    resolver: zodResolver(RegisterSchema),
   })
 
-  function onSubmit(data: SignUpCredentials) {
+  function onSubmit(data: Register) {
     setIsLoading(async () => {
       const result = await signUpWithEmailAndPassword(data)
       const { error } = JSON.parse(result)

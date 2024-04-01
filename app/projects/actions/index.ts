@@ -1,13 +1,16 @@
 'use server'
 
-import { Project } from '@/app/data/schema'
+import { Milestone, Project } from '@/schemas'
 import supabaseServer from '@/lib/supabase/server'
-import { Milestone } from '@/app/data/schema'
 import { revalidatePath } from 'next/cache'
 
-export async function createProject(task: Project) {
+export async function createProject(project: Project) {
   const supabase = await supabaseServer()
-  const result = await supabase.from('project').insert(task).select().single()
+  const result = await supabase
+    .from('project')
+    .insert(project)
+    .select()
+    .single()
   revalidatePath(`projects`)
   return JSON.stringify(result)
 }
@@ -22,15 +25,36 @@ export async function createMilestonesInBulk(milestones: Milestone[]) {
 export async function getProjectWithMilestones() {
   const supabase = await supabaseServer()
   const result = await supabase
-    .from('project') // Assuming 'projects' is your projects table name
+    .from('project')
     .select(
       `
         *,
-        milestones: milestone!project_id (title, deadline, completed, checked, project_id)
+        milestones: milestone!project_id (id, title, deadline, completed, checked, project_id)
     `
     )
-    .order('deadline', { referencedTable: 'milestone' }) // Order milestones by deadline
-    .order('created_at', { ascending: true }) // Additionally, order projects by their ID or another relevant field
+    .order('deadline', { referencedTable: 'milestone' })
+    .order('created_at', { ascending: true })
+  revalidatePath(`projects`)
+  return result
+}
+
+export async function deleteMilestonesInBulk(milestone_id: string) {
+  const supabase = await supabaseServer()
+  const result = await supabase
+    .from('milestone')
+    .delete()
+    .eq('id', milestone_id)
+
+  revalidatePath(`projects`)
+  return result
+}
+
+export async function updateMilestonesInBulk(milestones: Milestone[]) {
+  const supabase = await supabaseServer()
+  const result = await supabase
+    .from('milestone')
+    .upsert(milestones, { onConflict: 'id' })
+
   revalidatePath(`projects`)
   return result
 }

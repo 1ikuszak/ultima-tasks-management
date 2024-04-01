@@ -1,6 +1,7 @@
-import { Milestone } from '@/app/data/schema'
+import { Milestone, MilestoneSchema } from '@/schemas'
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
+import * as z from 'zod'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))

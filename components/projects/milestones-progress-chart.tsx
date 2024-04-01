@@ -1,6 +1,6 @@
 'use client'
 
-import { Milestone } from '@/app/data/schema'
+import { Milestone, MilestoneSchema } from '@/schemas'
 import { calculateDeviation, formatDateString } from '@/lib/utils'
 import React from 'react'
 import {
@@ -13,6 +13,7 @@ import {
 } from 'recharts'
 import { Icons } from '../icons'
 import { LucideProps } from 'lucide-react'
+import * as z from 'zod'
 
 type ChartMilestone = Milestone & {
   deviation: number
@@ -173,7 +174,7 @@ export function MilestonesProgressChart({
         <ReferenceLine
           y={0}
           style={{ stroke: 'var(--primary)' }}
-          className="stroke stroke-muted-foreground"
+          className="stroke stroke-muted-foreground "
           strokeDasharray="3 3"
         />
       </AreaChart>

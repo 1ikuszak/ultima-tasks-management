@@ -1,6 +1,7 @@
 'use server'
 
 import supabaseServer from '@/lib/supabase/server'
+import { LoginSchema, RegisterSchema } from '@/schemas'
 
 export async function signUpWithEmailAndPassword(data: {
   email: string

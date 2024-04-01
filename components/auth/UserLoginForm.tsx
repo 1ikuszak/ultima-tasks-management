@@ -10,10 +10,7 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Icons } from '../icons'
-import {
-  SignInValidationSchema,
-  SignInCredentials,
-} from '@/lib/validators/signin-validator'
+import { Login, LoginSchema } from '@/schemas'
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -24,11 +21,11 @@ export function UserLoginForm({ className, ...props }: UserAuthFormProps) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignInCredentials>({
-    resolver: zodResolver(SignInValidationSchema),
+  } = useForm<Login>({
+    resolver: zodResolver(LoginSchema),
   })
 
-  function onSubmit(data: SignInCredentials) {
+  function onSubmit(data: Login) {
     setIsLoading(async () => {
       const result = await signInWithEmailAndPassword(data)
       const { error } = JSON.parse(result)

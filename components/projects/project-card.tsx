@@ -7,15 +7,13 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Button } from '../ui/button'
-import { KpiChart } from './kpi-chart'
 import { TeamTasksOverview } from './team-tasks-overview'
-import { ProjectWithMilestones } from '@/app/data/schema'
+import { ProjectWithMilestones, ProjectWithMilestonesSchema } from '@/schemas'
 import { formatDate, getCurrentMilestone } from '@/lib/utils'
 import { TimeProgressBar } from '../time-progress-bar'
 import { Badge } from '../ui/badge'
 import { MilestonesProgressChart } from './milestones-progress-chart'
-import { RadarChart } from './radar-chart'
-import { EditMilestonesDialog } from './update-milestones-dialog'
+import { MilestonesUpdateDialog } from './milestones-update-dialog'
 
 interface projectCardProps {
   project: ProjectWithMilestones
@@ -31,7 +29,10 @@ export function ProjectCard({ project }: projectCardProps) {
           <CardDescription>{project.title}</CardDescription>
         </div>
         <div className="flex gap-1">
-          <EditMilestonesDialog milestones={project.milestones} />
+          <MilestonesUpdateDialog
+            project_id={project.id!}
+            milestones={project.milestones}
+          />
           <Button size={'sm'}>Tasks</Button>
         </div>
       </CardHeader>

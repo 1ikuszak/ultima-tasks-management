@@ -7,23 +7,25 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { UpdateMilestonesForm } from './update-milestones-form'
-import { Milestone } from '@/app/data/schema'
+import { MilestonesUpdateForm } from './milestones-update-form'
+import { Milestone } from '@/schemas/index'
 
 interface editMilestonesDialogProps {
   milestones: Milestone[]
+  project_id: string
 }
 
-export function EditMilestonesDialog({
+export function MilestonesUpdateDialog({
   milestones,
+  project_id,
 }: editMilestonesDialogProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
         <Button variant="outline">Edit Milestones</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[800px]">
-        <UpdateMilestonesForm milestones={milestones} />
+      <DialogContent className="sm:max-w-[860px]">
+        <MilestonesUpdateForm project_id={project_id} milestones={milestones} />
       </DialogContent>
     </Dialog>
   )

@@ -5,7 +5,7 @@ import readUserSession from '@/lib/actions'
 import { redirect } from 'next/navigation'
 import { getProjectWithMilestones } from './actions'
 import { z } from 'zod'
-import { projectWithMilestonesSchema } from '../data/schema'
+import { ProjectWithMilestonesSchema } from '@/schemas'
 
 export default async function ProjectPage() {
   const { data } = await readUserSession()
@@ -14,7 +14,7 @@ export default async function ProjectPage() {
   }
 
   const response = await getProjectWithMilestones()
-  const projects = z.array(projectWithMilestonesSchema).parse(response.data)
+  const projects = z.array(ProjectWithMilestonesSchema).parse(response.data)
 
   return (
     <div className="flex flex-col min-h-screen mb-6">
